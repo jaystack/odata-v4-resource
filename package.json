@@ -1,0 +1,47 @@
+{
+  "name": "odata-v4-resource",
+  "version": "0.1.0",
+  "description": "OData V4 Resource path handler",
+  "main": "lib/index.js",
+  "typings": "lib/index",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "tsc",
+    "pretest": "npm run build",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaystack/odata-v4-resource.git"
+  },
+  "keywords": [
+    "OData",
+    "server",
+    "V4",
+    "resource",
+    "path"
+  ],
+  "author": "JayStack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaystack/odata-v4-resource/issues"
+  },
+  "homepage": "https://github.com/jaystack/odata-v4-resource#readme",
+  "dependencies": {
+    "odata-v4-literal": "^0.1.0",
+    "odata-v4-parser": "^0.1.9"
+  },
+  "devDependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.8",
+    "odata-v4-metadata": "^0.1.2",
+    "odata-v4-service-metadata": "^0.1.5",
+    "serve-static": "^1.10.2",
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "typescript": "^1.8.9"
+  }
+}
