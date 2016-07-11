@@ -31,7 +31,10 @@ app.get('/odata', function(req, res, next){
 
 var createServiceOperationCall = require('../lib/index').createServiceOperationCall;
 var createODataPath = require('../lib/index').createODataPath;
-
+app.get(createODataPath('/Meow(cats=1)', metadata.edmx), function(req, res, next){
+	var call = createServiceOperationCall(req.url, metadata.edmx);
+	res.send(call);
+});
 app.get(createODataPath('/Kittens(1)/Kittens(2)/Default.Rect(id=1)', metadata.edmx), function(req, res, next){
 	var call = createServiceOperationCall(req.url, metadata.edmx);
 	res.send(call);

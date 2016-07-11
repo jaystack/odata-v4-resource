@@ -184,8 +184,11 @@ export class Visitor{
     
     protected VisitFunctionImportCall(node:Token, context:any){
 		this.call = node.value.import.value.name;
+		this.path += '/' + this.call;
+        this.path += '(\\(';
 		this.params = {};
         node.value.params.forEach((param) => this.Visit(param, context));
+		this.path += '\\))';
 	}
     
     protected VisitFunctionParameter(node:Token, context:any){
@@ -197,6 +200,7 @@ export class Visitor{
 
 	protected VisitActionImportCall(node:Token, context:any){
 		this.call = node.value.value.name;
+		this.path += '/' + this.call;
 	}
     
     protected VisitParameterAlias(node:Token, context:any){
