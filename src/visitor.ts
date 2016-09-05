@@ -25,6 +25,7 @@ export class Visitor{
     alias:any
 	path:string
 	singleton:string
+	inlinecount:boolean
 	ast:Token
 
 	constructor(){
@@ -66,7 +67,9 @@ export class Visitor{
 		return <ODataResource>{
 			navigation: this.navigation,
 			call: this.call,
-			params: this.params
+			params: this.params,
+			singleton: this.singleton,
+			inlinecount: this.inlinecount
 		};
 	}
 
@@ -80,6 +83,10 @@ export class Visitor{
 
 		this.alias = {};
 		node.value.options.forEach((option) => this.Visit(option, context));
+	}
+
+	protected VisitInlineCount(node:Token, context:any){
+		this.inlinecount = Literal.convert(node.value.value, node.value.raw);
 	}
     
     protected VisitAliasAndValue(node:Token, context:any){
@@ -101,6 +108,12 @@ export class Visitor{
 		this.navigation.push({ name: node.value.name, type: node.type });
 		this.path += '/' + node.value.name;
 	}
+
+	protected VisitCountExpression(node:Token, context:any){
+        this.call = '$value';
+		this.params = {};
+        this.path += '/$count';
+    };
 
 	protected VisitCollectionNavigation(node:Token, context:any){
 		this.Visit(node.value.path, context);
@@ -155,11 +168,13 @@ export class Visitor{
 	protected VisitValueExpression(node:Token, context:any){
 		this.call = '$value';
 		this.params = {};
+		this.path += '/$value';
 	}
 
 	protected VisitRefExpression(node:Token, context:any){
 		this.call = '$ref';
 		this.params = {};
+		this.path += '/$ref';
 	}
 
 	protected VisitBoundOperation(node:Token, context:any){
