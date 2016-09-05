@@ -110,7 +110,7 @@ export class Visitor{
 	}
 
 	protected VisitCountExpression(node:Token, context:any){
-        this.call = '$value';
+        this.call = '$count';
 		this.params = {};
         this.path += '/$count';
     };
